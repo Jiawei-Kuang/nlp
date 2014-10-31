@@ -6,11 +6,11 @@ How to set up this web application using eclipse:
 
 require environment and tools:
 
-JDK 1.7 or 1.8 http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html
+1. JDK 1.7 or 1.8 http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html
 
-Eclipse IDE for Java EE Developers https://www.eclipse.org/downloads/
+2. Eclipse IDE for Java EE Developers https://www.eclipse.org/downloads/
 
-Apache Tomcat 7 or 8 http://tomcat.apache.org/
+3. Apache Tomcat 7 or 8 http://tomcat.apache.org/
 
 Steps
 
