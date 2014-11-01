@@ -7,22 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<link
-	href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet">
 <style>
 body {
-	
+	margin-top:20px;
+	margin-right:70px;
+	margin-bottom:10px;
+	margin-left:70px;
 }
 </style>
-<link
-	href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap-responsive.css"
-	rel="stylesheet">
-
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
-	
-</script>
+<link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css"	rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
 </head>
 <body>
 
@@ -31,30 +28,59 @@ body {
 		<li><a href="parser">Parser</a></li>
 	</ul>
 
-
-
 	<div align='center'>
 		<h2>
 			Sentence Parser<br> <br>
 		</h2>
-
 	</div>
 
 	<form id="form">
 		<div id="sentences">
 			<div id="sentence" class="input-group">
 				<span id="rmBtnNth" class="input-group-btn">
-					<button id="rmSentenceBtn" class="btn btn-primary" type="button">Remove
+					<button id="nth" class="btn btn-default" type="button">1
 					</button>
-					<button id="nth" class="btn btn-warning" type="button">1
-					</button>
-				</span> <input type="text" id="inputSentence" name="inputSentence"
-					class="form-control" placeholder="input sentence"> <span
-					class="input-group-btn"> <select id="exception"
-					name="exception" class="btn btn-default dropdown-toggle">
+				</span>
+  				
+				<input type="text" id="inputSentence" name="inputSentence" 
+					class="form-control" placeholder="input sentence">
+				<span id="if" class="input-group-addon">IF</span>
+				<input type="text" id="ifSentence" name="ifSentence"
+					class="form-control" placeholder="input sentence">
+				<span id="then" class="input-group-addon">THEN</span>
+				<input type="text" id="thenSentence" name="thenSentence"
+					class="form-control" placeholder="input sentence">
+				<span id="questionMark" class="input-group-addon">?</span>
+				
+				<span class="input-group-addon"> 
+					<select id="exception" name="exception" class="btn btn-default">
 						<option value="exception">Exception</option>
-
-				</select>
+					</select>
+				</span>
+				<span class="input-group-addon"> 
+					<select id="sentenceAttr" name="sentenceAttr" class="btn btn-default">
+						<option value="strict">Strict</option>
+						<option value="defeasible">Defeasible</option>
+					</select>
+				</span>
+				<span class="input-group-addon"> 
+					<select id="sentenceType" name="sentenceType" class="btn btn-default">
+						<option value="sentence">Sentence</option>
+						<option value="rule">Rule</option>
+						<option value="question">Question</option>
+					</select>
+				</span>
+				<span id="questionType" class="input-group-addon"> 
+					<select	name="questionType" class="btn btn-default">
+						<option value="what">What</option>
+						<option value="when">When</option>
+						<option value="where">Where</option>
+					</select>
+				</span>
+				<span class="input-group-btn">
+					<button id="rmSentenceBtn" class="btn btn-danger" type="button">
+						<span class="glyphicon glyphicon-minus"></span>
+					</button>
 				</span>
 			</div>
 		</div>
@@ -81,7 +107,6 @@ body {
 				<span class="input-group-btn">
 				<button class="btn btn-info">Exception With</button>
 				<button id="nth" class="btn btn-warning" type="button">${sentence.exception}</button>
-				
 			</span></c:if>
 		</div>
 		</c:forEach>
@@ -106,46 +131,75 @@ body {
 				value="${sentences[0].fol}" readonly="readonly">
 		</div>
 	</c:if>
-
-	<script
-		src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
-	var num = 1;
-	$(document).ready(function() {
-		$('#form').on('click', '#addSentenceBtn', function() {
-			num = num + 1;
-			var sentenceDiv = $("#sentence:last").clone(true);
-			sentenceDiv.children("#inputSentence").removeAttr("value");
-			sentenceDiv.children("#rmBtnNth").children("#nth").remove();
-			sentenceDiv.children("#rmBtnNth").append('<button id="nth" class="btn btn-warning" type="button">'
-					+ num + '</button>');
-			$("#sentences").append(sentenceDiv);
-
+		var num = 1;
+		$(document).ready(function() {
+			$("input#ifSentence").hide();
+			$("input#thenSentence").hide();
+			$("span#if").hide();
+			$("span#then").hide();
+			$("span#questionType").hide();
+			$("span#questionMark").hide();
+			$('#form').on('change', 'select#sentenceType', function(){
+				if ($(this).val().localeCompare("sentence") == 0) {
+					$(this).parent().parent().children("#inputSentence").show();
+					$(this).parent().parent().children("#ifSentence").hide();
+					$(this).parent().parent().children("#thenSentence").hide();
+					$(this).parent().parent().children("#if").hide();
+					$(this).parent().parent().children("#then").hide();
+					$(this).parent().parent().children("#questionMark").hide();
+					$(this).parent().parent().children("#questionType").hide();
+				} else if ($(this).val().localeCompare("rule") == 0) {
+					$(this).parent().parent().children("#inputSentence").hide();
+					$(this).parent().parent().children("#ifSentence").show();
+					$(this).parent().parent().children("#thenSentence").show();
+					$(this).parent().parent().children("#if").show();
+					$(this).parent().parent().children("#then").show();
+					$(this).parent().parent().children("#questionMark").hide();
+					$(this).parent().parent().children("#questionType").hide();
+				} else if ($(this).val().localeCompare("question") == 0) {
+					$(this).parent().parent().children("#inputSentence").show();
+					$(this).parent().parent().children("#ifSentence").hide();
+					$(this).parent().parent().children("#thenSentence").hide();
+					$(this).parent().parent().children("#if").hide();
+					$(this).parent().parent().children("#then").hide();
+					$(this).parent().parent().children("#questionMark").show();
+					$(this).parent().parent().children("#questionType").show();
+				}
+			});
 			
-			$("select#exception").children().remove();
-			$("select#exception").append('<option value="exception">Exception</option>');
-			for (var i = 1; i <= num; i++) {
-				$("select#exception").append('<option value="' + i +'">' + i + '</option>');
-			}
-		});
+			$('#form').on('click', '#addSentenceBtn', function() {
+				num = num + 1;
+				var sentenceDiv = $("#sentence:last").clone(true);
+				sentenceDiv.children("#inputSentence").removeAttr("value");
+				sentenceDiv.children("#rmBtnNth").children("#nth").remove();
+				sentenceDiv.children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
+						+ num + '</button>');
+				$("#sentences").append(sentenceDiv);
+			
+				$("select#exception").children().remove();
+				$("select#exception").append('<option value="exception">Exception</option>');
+				for (var i = 1; i <= num; i++) {
+					$("select#exception").append('<option value="' + i +'">' + i + '</option>');
+				}
+			});
 
-		$("#rmSentenceBtn").click(function() {
-			$(this).parent().parent().remove();
-			num = num - 1;
-			$("select#exception").children().remove();
-			$("select#exception").append('<option value="exception">exception</option>');
-			for (var i = 1; i <= num; i++) {
-				$("select#exception").append('<option value="' + i +'">' + i + '</option>');
-				$("span#rmBtnNth").children("#nth").remove();
-				
-			}
-			for (var i = 1; i <= num; i++) {
-				$("div#sentence:nth-child(" + i + ")").children("#rmBtnNth").append('<button id="nth" class="btn btn-warning" type="button">'
-						+ i + '</button>');
-			}
+			$("#rmSentenceBtn").click(function() {
+				$(this).parent().parent().remove();
+				num = num - 1;
+				$("select#exception").children().remove();
+				$("select#exception").append('<option value="exception">exception</option>');
+				for (var i = 1; i <= num; i++) {
+					$("select#exception").append('<option value="' + i +'">' + i + '</option>');
+					$("span#rmBtnNth").children("#nth").remove();
+				}
+				for (var i = 1; i <= num; i++) {
+					$("div#sentence:nth-child(" + i + ")").children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
+							+ i + '</button>');
+				}
+			});
 		});
-	});
-</script>
-
+	</script>
 </body>
 </html>
