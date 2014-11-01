@@ -186,6 +186,9 @@ body {
 			});
 
 			$("#rmSentenceBtn").click(function() {
+				if (num == 1) {
+					return;
+				}
 				$(this).parent().parent().remove();
 				num = num - 1;
 				$("select#exception").children().remove();
