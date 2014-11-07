@@ -37,11 +37,22 @@ body {
 	<form id="form">
 		<div id="sentences">
 			<div id="sentence" class="input-group">
+				<span class="input-group-btn">
+					<button id="rmSentenceBtn" class="btn btn-danger" type="button">
+						<span class="glyphicon glyphicon-minus"></span>
+					</button>
+				</span>
 				<span id="rmBtnNth" class="input-group-btn">
 					<button id="nth" class="btn btn-default" type="button">1
 					</button>
 				</span>
-  				
+  				<span id="questionType" class="input-group-addon"> 
+					<select	name="questionType" class="btn btn-default">
+						<option value="what">What</option>
+						<option value="when">When</option>
+						<option value="where">Where</option>
+					</select>
+				</span>
 				<input type="text" id="inputSentence" name="inputSentence" 
 					class="form-control" placeholder="input sentence">
 				<span id="if" class="input-group-addon">IF</span>
@@ -70,18 +81,10 @@ body {
 						<option value="question">Question</option>
 					</select>
 				</span>
-				<span id="questionType" class="input-group-addon"> 
-					<select	name="questionType" class="btn btn-default">
-						<option value="what">What</option>
-						<option value="when">When</option>
-						<option value="where">Where</option>
-					</select>
-				</span>
-				<span class="input-group-btn">
-					<button id="rmSentenceBtn" class="btn btn-danger" type="button">
-						<span class="glyphicon glyphicon-minus"></span>
-					</button>
-				</span>
+				
+				<select class="selectpicker" multiple title='except w.' name="except[]" data-width="100px">
+					<option value="1">1</option>
+				</select>
 			</div>
 		</div>
 		<br>
@@ -94,11 +97,10 @@ body {
 	</form>
 	<br>
 	<br>
-	<c:if test="${not empty sentences}">
-		<c:forEach var="sentence" items="${sentences}">
+	<c:if test="${not empty model.sentences}">
+		<c:forEach var="sentence" items="${model.sentences}">
 		<div id="inputSentence" class="input-group">
 			<span class="input-group-btn">
-				<button class="btn btn-success">Input Sentence</button>
 				<button id="nth" class="btn btn-warning" type="button">${sentence.num}</button>
 			</span> <input type="text" id="inputSentence" name="inputSentence"
 				class="form-control" value="${sentence.sentence}"
@@ -113,26 +115,27 @@ body {
 	</c:if>
 	<br>
 	<br>
-	<c:if test="${not empty sentences}">
+	<c:if test="${not empty model.sentences}">
 		<div id=drs class="input-group">
 			<span class="input-group-btn">
 				<button class="btn btn-success">DRS</button>
 			</span> <input type="text" id="drs" name="drs" class="form-control"
-				value="${sentences[0].drs}" readonly="readonly">
+				value="${model.sentences[0].drs}" readonly="readonly">
 		</div>
 	</c:if>
 	<br>
 	<br>
-	<c:if test="${not empty sentences}">
+	<c:if test="${not empty model.sentences}">
 		<div id=fol class="input-group">
 			<span class="input-group-btn">
 				<button class="btn btn-success">FOL</button>
 			</span> <input type="text" id="fol" name="fol" class="form-control"
-				value="${sentences[0].fol}" readonly="readonly">
+				value="${model.sentences[0].fol}" readonly="readonly">
 		</div>
 	</c:if>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
+		// if cannot update the data in the exception select, try removing the exception select and create a new one with correct options.
 		var num = 1;
 		$(document).ready(function() {
 			$("input#ifSentence").hide();
@@ -183,6 +186,24 @@ body {
 				for (var i = 1; i <= num; i++) {
 					$("select#exception").append('<option value="' + i +'">' + i + '</option>');
 				}
+				
+				//process multiselect
+				var exceptToRemove = $(".selectpicker");
+				exceptToRemove.remove();
+				$(".bootstrap-select").remove();
+				
+				var exception = '<select class="selectpicker" multiple title="except w." name="except[]" data-width="100px">';
+				for (var i = 1; i <= num; i++) {
+					exception += '<option value="' + i +'">' + i + '</option>';
+				}
+				exception += '</select>';
+				$("div#sentence").append(exception);
+				 
+				$('.selectpicker').selectpicker({
+				      style: 'btn-defalut',
+				      size: 4
+				});
+				
 			});
 
 			$("#rmSentenceBtn").click(function() {
@@ -201,6 +222,26 @@ body {
 					$("div#sentence:nth-child(" + i + ")").children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
 							+ i + '</button>');
 				}
+				
+				$(".selectpicker").remove();
+				$(".bootstrap-select").remove();
+				
+				var exception = '<select class="selectpicker" multiple title="except w." name="except[]" data-width="100px">';
+				for (var i = 1; i <= num; i++) {
+					exception += '<option value="' + i +'">' + i + '</option>';
+				}
+				exception += '</select>';
+				$("div#sentence").append(exception);
+				 
+				$('.selectpicker').selectpicker({
+				      style: 'btn-defalut',
+				      size: 4
+				});
+			});
+			
+			$('.selectpicker').selectpicker({
+			      style: 'btn-defalut',
+			      size: 4
 			});
 		});
 	</script>
