@@ -37,22 +37,29 @@ body {
 	<form id="form">
 		<div id="sentences">
 			<div id="sentence" class="input-group">
+				<!-- remove button -->
 				<span class="input-group-btn">
 					<button id="rmSentenceBtn" class="btn btn-danger" type="button">
 						<span class="glyphicon glyphicon-minus"></span>
 					</button>
 				</span>
+				
+				<!-- sentence sequence number -->
 				<span id="rmBtnNth" class="input-group-btn">
 					<button id="nth" class="btn btn-default" type="button">1
 					</button>
 				</span>
+				
+				<!-- question types such as who, what, where and when -->
   				<span id="questionType" class="input-group-addon"> 
-					<select	name="questionType" class="btn btn-default">
-						<option value="what">What</option>
-						<option value="when">When</option>
-						<option value="where">Where</option>
+					<select	name="${model.questionType}" class="btn btn-default">
+						<c:forEach var="qType" items="${model.questionTypes}">
+							<option value="${qType}">${qType}</option>
+						</c:forEach>
 					</select>
 				</span>
+				
+				<!-- input area -->
 				<input type="text" id="inputSentence" name="inputSentence" 
 					class="form-control" placeholder="input sentence">
 				<span id="if" class="input-group-addon">IF</span>
@@ -63,26 +70,37 @@ body {
 					class="form-control" placeholder="input sentence">
 				<span id="questionMark" class="input-group-addon">?</span>
 				
+				<!-- 
 				<span class="input-group-addon"> 
 					<select id="exception" name="exception" class="btn btn-default">
 						<option value="exception">Exception</option>
 					</select>
 				</span>
-				<span class="input-group-addon"> 
-					<select id="sentenceAttr" name="sentenceAttr" class="btn btn-default">
-						<option value="strict">Strict</option>
-						<option value="defeasible">Defeasible</option>
-					</select>
+				 -->
+				<!-- sentence parameter e.g. Strict and Defeasible -->
+				<span class="input-group-addon">
+					<select name="${model.sentenceParameter}" class="btn btn-default">
+						<c:forEach var="parameter" items="${model.sentenceParameters}">
+							<option value="${parameter}">${parameter}</option>
+						</c:forEach>
+					</select> 
 				</span>
+				
+				<!-- sentence type e.g. sentence, rule and question -->
 				<span class="input-group-addon"> 
-					<select id="sentenceType" name="sentenceType" class="btn btn-default">
-						<option value="sentence">Sentence</option>
-						<option value="rule">Rule</option>
-						<option value="question">Question</option>
+					<select id="sentenceType" name="${model.sentenceType}" class="btn btn-default">
+						<c:forEach var="type" items="${model.sentenceTypes}">
+							<option value="${type}">${type}</option>
+						</c:forEach>
 					</select>
 				</span>
 				
-				<select class="selectpicker" multiple title='except w.' name="except[]" data-width="100px">
+				<span id="dummyException" class="input-group-addon"> 
+					<select name="except" class="btn btn-default">
+						<option value="0"></option>
+					</select>
+				</span>
+				<select class="selectpicker" multiple title='except w.' name="except" data-width="100px">
 					<option value="1">1</option>
 				</select>
 			</div>
@@ -105,10 +123,12 @@ body {
 			</span> <input type="text" id="inputSentence" name="inputSentence"
 				class="form-control" value="${sentence.sentence}"
 				readonly="readonly">
-				<c:if test="${sentence.exception ne 'exception'}">
+				<c:if test="${not empty sentence.excepts}">
 				<span class="input-group-btn">
 				<button class="btn btn-info">Exception With</button>
-				<button id="nth" class="btn btn-warning" type="button">${sentence.exception}</button>
+				<c:forEach var="except" items="${sentence.excepts}">
+					<button id="nth" class="btn btn-warning" type="button">${except}</button>
+				</c:forEach>
 			</span></c:if>
 		</div>
 		</c:forEach>
@@ -135,7 +155,6 @@ body {
 	</c:if>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
-		// if cannot update the data in the exception select, try removing the exception select and create a new one with correct options.
 		var num = 1;
 		$(document).ready(function() {
 			$("input#ifSentence").hide();
@@ -144,8 +163,9 @@ body {
 			$("span#then").hide();
 			$("span#questionType").hide();
 			$("span#questionMark").hide();
+			$("span#dummyException").hide();
 			$('#form').on('change', 'select#sentenceType', function(){
-				if ($(this).val().localeCompare("sentence") == 0) {
+				if ($(this).val().localeCompare("Sentence") == 0) {
 					$(this).parent().parent().children("#inputSentence").show();
 					$(this).parent().parent().children("#ifSentence").hide();
 					$(this).parent().parent().children("#thenSentence").hide();
@@ -153,7 +173,7 @@ body {
 					$(this).parent().parent().children("#then").hide();
 					$(this).parent().parent().children("#questionMark").hide();
 					$(this).parent().parent().children("#questionType").hide();
-				} else if ($(this).val().localeCompare("rule") == 0) {
+				} else if ($(this).val().localeCompare("Rule") == 0) {
 					$(this).parent().parent().children("#inputSentence").hide();
 					$(this).parent().parent().children("#ifSentence").show();
 					$(this).parent().parent().children("#thenSentence").show();
@@ -161,7 +181,7 @@ body {
 					$(this).parent().parent().children("#then").show();
 					$(this).parent().parent().children("#questionMark").hide();
 					$(this).parent().parent().children("#questionType").hide();
-				} else if ($(this).val().localeCompare("question") == 0) {
+				} else if ($(this).val().localeCompare("Question") == 0) {
 					$(this).parent().parent().children("#inputSentence").show();
 					$(this).parent().parent().children("#ifSentence").hide();
 					$(this).parent().parent().children("#thenSentence").hide();
@@ -180,19 +200,13 @@ body {
 				sentenceDiv.children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
 						+ num + '</button>');
 				$("#sentences").append(sentenceDiv);
-			
-				$("select#exception").children().remove();
-				$("select#exception").append('<option value="exception">Exception</option>');
-				for (var i = 1; i <= num; i++) {
-					$("select#exception").append('<option value="' + i +'">' + i + '</option>');
-				}
 				
 				//process multiselect
 				var exceptToRemove = $(".selectpicker");
 				exceptToRemove.remove();
 				$(".bootstrap-select").remove();
 				
-				var exception = '<select class="selectpicker" multiple title="except w." name="except[]" data-width="100px">';
+				var exception = '<select class="selectpicker" multiple title="except w." name="except" data-width="100px">';
 				for (var i = 1; i <= num; i++) {
 					exception += '<option value="' + i +'">' + i + '</option>';
 				}
@@ -212,12 +226,8 @@ body {
 				}
 				$(this).parent().parent().remove();
 				num = num - 1;
-				$("select#exception").children().remove();
-				$("select#exception").append('<option value="exception">exception</option>');
-				for (var i = 1; i <= num; i++) {
-					$("select#exception").append('<option value="' + i +'">' + i + '</option>');
-					$("span#rmBtnNth").children("#nth").remove();
-				}
+
+				$("span#rmBtnNth").children("#nth").remove();
 				for (var i = 1; i <= num; i++) {
 					$("div#sentence:nth-child(" + i + ")").children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
 							+ i + '</button>');
@@ -226,7 +236,7 @@ body {
 				$(".selectpicker").remove();
 				$(".bootstrap-select").remove();
 				
-				var exception = '<select class="selectpicker" multiple title="except w." name="except[]" data-width="100px">';
+				var exception = '<select class="selectpicker" multiple title="except w." name="except" data-width="100px">';
 				for (var i = 1; i <= num; i++) {
 					exception += '<option value="' + i +'">' + i + '</option>';
 				}
