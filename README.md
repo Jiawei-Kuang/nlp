@@ -6,11 +6,13 @@ How to set up this web application using eclipse:
 
 require environment and tools:
 
-1. JDK 1.7 or 1.8 http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html
+1. JDK 1.7 or 1.8 http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html (If you use 1.7, you need to change the jdk version in pom.xml)
 
 2. Eclipse IDE for Java EE Developers https://www.eclipse.org/downloads/
 
 3. Apache Tomcat 7 or 8 http://tomcat.apache.org/
+
+4. Browser: Recommend to use Chrome by now, other browsers and eclipse will have misplaces of the html element. 
 
 Steps
 
