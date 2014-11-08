@@ -1,7 +1,14 @@
 package edu.stonybrook.cs.nlp;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class SentenceParserHandler {
-	public static void parse(Sentence sentence, SentenceParser parser) {
-		sentence.setDrs(parser.parseToDRS(sentence.getSentence()));
-		sentence.setFol(parser.parseToFOL(sentence.getSentence()));
+	
+	@Autowired
+	private SentenceParser sentenceParser;
+	
+	public void parse(Sentence sentence) {
+		sentence.setDrs(sentenceParser.parseToDRS(sentence.getSentence()));
+		sentence.setFol(sentenceParser.parseToFOL(sentence.getSentence()));
 	}
 }

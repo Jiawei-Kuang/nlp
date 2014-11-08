@@ -1,22 +1,31 @@
 package edu.stonybrook.cs.nlp.parser.filter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class SentenceParserFilter {
+
+	private SentenceParserFilterSelector sentenceParserFilterSelector;
+
+	public SentenceParserFilter(SentenceParserFilterSelector sentenceParserFilterSelector){
+		this.sentenceParserFilterSelector = sentenceParserFilterSelector;
+	}
+
+	public List<String> getAllSentenceTypes() {
+		List<String> sentenceTypes = new ArrayList<>();
+		sentenceParserFilterSelector.setSentenceTypes(sentenceTypes);
+		return sentenceTypes;
+	}
 	
-//	@Autowired
-//	private SentenceParserFilterSelector sentenceParserFilterSelector;
-//	
-//	private List<String> sentenceTypes;
-//	
-//	public SentenceParserFilter(List<String> sentenceTypes) {
-//		this.sentenceTypes = sentenceTypes;
-//		sentenceParserFilterSelector.setSentenceTypes(this.sentenceTypes);
-//	}
-//	
-//	public List<String> getAllSentenceTypes() {
-//		return this.sentenceTypes;
-//	}
+	public List<String> getAllSentenceParameters() {
+		List<String> sentenceParameters = new ArrayList<>();
+		sentenceParserFilterSelector.setSentenceParameters(sentenceParameters);
+		return sentenceParameters;
+	}
+	
+	public List<String> getAllInterrogatives() {
+		List<String> interrogatives = new ArrayList<>();
+		sentenceParserFilterSelector.setInterrogatives(interrogatives);
+		return interrogatives;
+	}
 }
