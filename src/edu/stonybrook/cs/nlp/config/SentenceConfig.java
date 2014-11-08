@@ -11,29 +11,29 @@ import edu.stonybrook.cs.nlp.sentence.parser.SentenceParserHandler;
 
 @Configuration
 public class SentenceConfig {
-	@Bean
-	public SentenceFilterSelector sentenceFilterSelector() {
-		return new SentenceFilterSelector();
-	}
+    @Bean
+    public SentenceFilterSelector sentenceFilterSelector() {
+        return new SentenceFilterSelector();
+    }
 
-	@Bean
-	public SentenceFilter sentenceFilter(
-			SentenceFilterSelector sentenceFilterSelector) {
-		return new SentenceFilter(sentenceFilterSelector);
-	}
-	
-	@Bean
-	public SentencesSelector sentencesSelector() {
-		return new SentencesSelector();
-	}
-	
-	@Bean
-	public SentenceParser sentenceParser() {
-		return new SentenceParser();
-	}
-	
-	@Bean
-	public SentenceParserHandler sentenceParserHandler() {
-		return new SentenceParserHandler();
-	}
+    @Bean
+    public SentenceFilter sentenceFilter(
+            SentenceFilterSelector sentenceFilterSelector) {
+        return new SentenceFilter(sentenceFilterSelector);
+    }
+    
+    @Bean
+    public SentencesSelector sentencesSelector() {
+        return new SentencesSelector();
+    }
+    
+    @Bean
+    public SentenceParser sentenceParser() {
+        return new SentenceParser();
+    }
+    
+    @Bean
+    public SentenceParserHandler sentenceParserHandler() {
+        return new SentenceParserHandler();
+    }
 }

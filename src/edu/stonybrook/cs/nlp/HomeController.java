@@ -25,40 +25,37 @@ import edu.stonybrook.cs.nlp.sentence.parser.SentenceParserHandler;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private SentenceFilter sentenceFilter;
-	
-	@Autowired
-	private SentencesSelector sentencesSelector;
-	
-	@Autowired
-	private SentenceParserHandler sentenceParserHandler;
-	
-	public HomeController() {
-	}
+    @Autowired
+    private SentenceFilter sentenceFilter;
+    
+    @Autowired
+    private SentencesSelector sentencesSelector;
+    
+    @Autowired
+    private SentenceParserHandler sentenceParserHandler;
 
-	@RequestMapping("/parser")
-	public ModelAndView sentenceParser(HttpServletRequest request) {
-		Map<String, Object> model = new HashMap<>();
-		model.put(InputSentence.SENTENCE_PARAMETERS, sentenceFilter.getAllSentenceParameters());
-		model.put(InputSentence.SENTENCE_PARAMETER, InputSentence.SENTENCE_PARAMETER);
-		model.put(InputSentence.SENTENCE_TYPES, sentenceFilter.getAllSentenceTypes());
-		model.put(InputSentence.SENTENCE_TYPE, InputSentence.SENTENCE_TYPE);
-		model.put(InputSentence.QUESTION_TYPES, sentenceFilter.getAllInterrogatives());
-		model.put(InputSentence.QUESTION_TYPE, InputSentence.QUESTION_TYPE);
-		List<Sentence> sentencesList = sentencesSelector.getSentences(request);
-		model.put("sentences", sentencesList);
-		
-		for (int i = 0; i < sentencesList.size(); i++) {
-			Sentence sentence = sentencesList.get(i);
-			sentenceParserHandler.parse(sentence);
-		}
-		
-		return new ModelAndView("parser", "model", model);
-	}
+    @RequestMapping("/parser")
+    public ModelAndView sentenceParser(HttpServletRequest request) {
+        Map<String, Object> model = new HashMap<>();
+        model.put(InputSentence.SENTENCE_PARAMETERS, sentenceFilter.getAllSentenceParameters());
+        model.put(InputSentence.SENTENCE_PARAMETER, InputSentence.SENTENCE_PARAMETER);
+        model.put(InputSentence.SENTENCE_TYPES, sentenceFilter.getAllSentenceTypes());
+        model.put(InputSentence.SENTENCE_TYPE, InputSentence.SENTENCE_TYPE);
+        model.put(InputSentence.QUESTION_TYPES, sentenceFilter.getAllInterrogatives());
+        model.put(InputSentence.QUESTION_TYPE, InputSentence.QUESTION_TYPE);
+        List<Sentence> sentencesList = sentencesSelector.getSentences(request);
+        model.put("sentences", sentencesList);
+        
+        for (int i = 0; i < sentencesList.size(); i++) {
+            Sentence sentence = sentencesList.get(i);
+            sentenceParserHandler.parse(sentence);
+        }
+        
+        return new ModelAndView("parser", "model", model);
+    }
 
-	@RequestMapping("/home")
-	public ModelAndView homePage() {
-		return new ModelAndView("home", "message", "");
-	}
+    @RequestMapping("/home")
+    public ModelAndView homePage() {
+        return new ModelAndView("home", "message", "");
+    }
 }
