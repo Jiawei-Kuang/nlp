@@ -19,7 +19,7 @@ public class Constant {
         public final String SENTENCE_TYPES              = "sentenceTypes";
         public final String QUESTION_TYPE               = "questionType";
         public final String QUESTION_TYPES              = "questionTypes";
-        public final String EXCEPTION                   = "except";
+        public final String EXCEPTION                   = "exception";
         
         public interface Interrogative {
             public final String WHAT                    = "What";

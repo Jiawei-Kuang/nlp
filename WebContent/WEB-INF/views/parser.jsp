@@ -96,11 +96,11 @@ body {
 				</span>
 				
 				<span id="dummyException" class="input-group-addon"> 
-					<select name="except" class="btn btn-default">
+					<select name="exception" class="btn btn-default">
 						<option value="0"></option>
 					</select>
 				</span>
-				<select class="selectpicker" multiple title='except w.' name="except" data-width="100px">
+				<select class="selectpicker" multiple title='Except With' name="exception" data-width="150px">
 					<option value="1">1</option>
 				</select>
 			</div>
@@ -123,11 +123,11 @@ body {
 			</span> <input type="text" id="inputSentence" name="inputSentence"
 				class="form-control" value="${sentence.sentence}"
 				readonly="readonly">
-				<c:if test="${not empty sentence.excepts}">
+				<c:if test="${not empty sentence.exceptions}">
 				<span class="input-group-btn">
 				<button class="btn btn-info">Exception With</button>
-				<c:forEach var="except" items="${sentence.excepts}">
-					<button id="nth" class="btn btn-warning" type="button">${except}</button>
+				<c:forEach var="exception" items="${sentence.exceptions}">
+					<button id="nth" class="btn btn-warning" type="button">${exception}</button>
 				</c:forEach>
 			</span></c:if>
 		</div>
@@ -206,7 +206,7 @@ body {
 				exceptToRemove.remove();
 				$(".bootstrap-select").remove();
 				
-				var exception = '<select class="selectpicker" multiple title="except w." name="except" data-width="100px">';
+				var exception = '<select class="selectpicker" multiple title="Except With" name="exception" data-width="150px">';
 				for (var i = 1; i <= num; i++) {
 					exception += '<option value="' + i +'">' + i + '</option>';
 				}
@@ -236,7 +236,7 @@ body {
 				$(".selectpicker").remove();
 				$(".bootstrap-select").remove();
 				
-				var exception = '<select class="selectpicker" multiple title="except w." name="except" data-width="100px">';
+				var exception = '<select class="selectpicker" multiple title="Except With" name="exception" data-width="150px">';
 				for (var i = 1; i <= num; i++) {
 					exception += '<option value="' + i +'">' + i + '</option>';
 				}
