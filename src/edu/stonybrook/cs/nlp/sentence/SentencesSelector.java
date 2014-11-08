@@ -1,11 +1,10 @@
-package edu.stonybrook.cs.nlp.sentences;
+package edu.stonybrook.cs.nlp.sentence;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import edu.stonybrook.cs.nlp.Sentence;
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
 
 public class SentencesSelector {
@@ -31,7 +30,7 @@ public class SentencesSelector {
 			Sentence sentence = new Sentence();
 			sentence.setNum(i + 1);
 			sentence.setParameter(setenceParameters[i]);
-			sentence.setExcepts(exceptionsList.get(i));
+			sentence.setExceptions(exceptionsList.get(i));
 			switch (sentenceTypes[i]) {
 			case InputSentence.Type.SENTENCE :
 				sentence.setSentence(inputSentences[i].trim());

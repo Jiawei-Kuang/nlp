@@ -3,23 +3,23 @@ package edu.stonybrook.cs.nlp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import edu.stonybrook.cs.nlp.SentenceParser;
-import edu.stonybrook.cs.nlp.SentenceParserHandler;
-import edu.stonybrook.cs.nlp.parser.filter.SentenceParserFilter;
-import edu.stonybrook.cs.nlp.parser.filter.SentenceParserFilterSelector;
-import edu.stonybrook.cs.nlp.sentences.SentencesSelector;
+import edu.stonybrook.cs.nlp.sentence.SentencesSelector;
+import edu.stonybrook.cs.nlp.sentence.filter.SentenceFilter;
+import edu.stonybrook.cs.nlp.sentence.filter.SentenceFilterSelector;
+import edu.stonybrook.cs.nlp.sentence.parser.SentenceParser;
+import edu.stonybrook.cs.nlp.sentence.parser.SentenceParserHandler;
 
 @Configuration
 public class SentenceConfig {
 	@Bean
-	public SentenceParserFilterSelector sentenceParserFilterSelector() {
-		return new SentenceParserFilterSelector();
+	public SentenceFilterSelector sentenceFilterSelector() {
+		return new SentenceFilterSelector();
 	}
 
 	@Bean
-	public SentenceParserFilter sentenceParserFilter(
-			SentenceParserFilterSelector sentenceParserFilterSelector) {
-		return new SentenceParserFilter(sentenceParserFilterSelector);
+	public SentenceFilter sentenceFilter(
+			SentenceFilterSelector sentenceFilterSelector) {
+		return new SentenceFilter(sentenceFilterSelector);
 	}
 	
 	@Bean

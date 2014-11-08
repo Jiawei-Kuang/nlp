@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
-import edu.stonybrook.cs.nlp.parser.filter.SentenceParserFilter;
-import edu.stonybrook.cs.nlp.sentences.SentencesSelector;
+import edu.stonybrook.cs.nlp.sentence.Sentence;
+import edu.stonybrook.cs.nlp.sentence.SentencesSelector;
+import edu.stonybrook.cs.nlp.sentence.filter.SentenceFilter;
+import edu.stonybrook.cs.nlp.sentence.parser.SentenceParserHandler;
 
 /*
  * author: Jiawei Kuang
@@ -24,7 +26,7 @@ import edu.stonybrook.cs.nlp.sentences.SentencesSelector;
 public class HomeController {
 
 	@Autowired
-	private SentenceParserFilter sentenceParserFilter;
+	private SentenceFilter sentenceFilter;
 	
 	@Autowired
 	private SentencesSelector sentencesSelector;
@@ -38,11 +40,11 @@ public class HomeController {
 	@RequestMapping("/parser")
 	public ModelAndView sentenceParser(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<>();
-		model.put(InputSentence.SENTENCE_PARAMETERS, sentenceParserFilter.getAllSentenceParameters());
+		model.put(InputSentence.SENTENCE_PARAMETERS, sentenceFilter.getAllSentenceParameters());
 		model.put(InputSentence.SENTENCE_PARAMETER, InputSentence.SENTENCE_PARAMETER);
-		model.put(InputSentence.SENTENCE_TYPES, sentenceParserFilter.getAllSentenceTypes());
+		model.put(InputSentence.SENTENCE_TYPES, sentenceFilter.getAllSentenceTypes());
 		model.put(InputSentence.SENTENCE_TYPE, InputSentence.SENTENCE_TYPE);
-		model.put(InputSentence.QUESTION_TYPES, sentenceParserFilter.getAllInterrogatives());
+		model.put(InputSentence.QUESTION_TYPES, sentenceFilter.getAllInterrogatives());
 		model.put(InputSentence.QUESTION_TYPE, InputSentence.QUESTION_TYPE);
 		List<Sentence> sentencesList = sentencesSelector.getSentences(request);
 		model.put("sentences", sentencesList);

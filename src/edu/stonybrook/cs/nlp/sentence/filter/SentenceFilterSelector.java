@@ -1,11 +1,11 @@
-package edu.stonybrook.cs.nlp.parser.filter;
+package edu.stonybrook.cs.nlp.sentence.filter;
 
 import java.util.List;
 
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
 
 
-public class SentenceParserFilterSelector {
+public class SentenceFilterSelector {
 	public void setSentenceTypes(List<String> sentenceTypes) {
 		sentenceTypes.add(InputSentence.Type.SENTENCE);
 		sentenceTypes.add(InputSentence.Type.RULE);

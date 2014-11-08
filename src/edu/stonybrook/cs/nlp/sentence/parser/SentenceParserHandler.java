@@ -1,6 +1,8 @@
-package edu.stonybrook.cs.nlp;
+package edu.stonybrook.cs.nlp.sentence.parser;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import edu.stonybrook.cs.nlp.sentence.Sentence;
 
 public class SentenceParserHandler {
 	
