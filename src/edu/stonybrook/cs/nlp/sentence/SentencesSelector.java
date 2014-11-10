@@ -7,8 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
 
+/**
+ * This class is used to get and clean the informations
+ * got from http request.
+ * 
+ * @author Jiawei Kuang
+ * @version 1.0
+ * @since Nov. 8, 2014
+ */
+
 public class SentencesSelector {
     
+    /**
+     * This method read all the informations got from http request,
+     * then process them and return a list a sentence object.
+     * 
+     * @param request
+     * @return List<Sentence>
+     */
     public List<Sentence> getSentences(HttpServletRequest request) {
         List<Sentence> sentences = new ArrayList<>();
         if (request.getParameterValues(InputSentence.SENTENCE_PARAMETER) == null) {

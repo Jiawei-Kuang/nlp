@@ -2,6 +2,16 @@ package edu.stonybrook.cs.nlp.sentence;
 
 import java.util.List;
 
+/**
+ * This class is used to store the content of one sentence
+ * with its sequence number, parameter, exception, drs and 
+ * fol result.
+ * 
+ * @author Jiawei Kuang
+ * @version 1.0
+ * @since Nov. 8, 2014
+ */
+
 public class Sentence {
     
     private Integer num;

@@ -11,9 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.stonybrook.cs.nlp.parser.ParserHandler;
 
-/*
- * author: Jiawei Kuang
+/**
  * 
+ * @author Jiawei Kuang
+ * @version 1.0
+ * @since Nov. 8, 2014
  */
 
 @Controller
