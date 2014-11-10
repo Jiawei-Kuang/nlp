@@ -1,4 +1,4 @@
-package edu.stonybrook.cs.nlp.parser;
+package edu.stonybrook.cs.nlp;
 
 import java.util.HashMap;
 import java.util.List;

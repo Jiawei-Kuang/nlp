@@ -3,7 +3,7 @@ package edu.stonybrook.cs.nlp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import edu.stonybrook.cs.nlp.parser.ParserHandler;
+import edu.stonybrook.cs.nlp.ParserHandler;
 
 /**
  * 
