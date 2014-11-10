@@ -20,6 +20,7 @@ public class Constant {
         public final String QUESTION_TYPE               = "questionType";
         public final String QUESTION_TYPES              = "questionTypes";
         public final String EXCEPTION                   = "exception";
+        public final String SENTENCES                   = "sentences";
         
         public interface Interrogative {
             public final String WHAT                    = "What";
@@ -31,6 +32,7 @@ public class Constant {
             public final String SENTENCE                = "Sentence";
             public final String RULE                    = "Rule";
             public final String QUESTION                = "Question";
+            public final String CANCEL                  = "Cancel";
         }
         
         public interface Parameter {
@@ -38,4 +40,5 @@ public class Constant {
             public final String DEFEASIBLE              = "Defeasible";
         }
     }
+
 }
