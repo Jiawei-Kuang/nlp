@@ -2,24 +2,31 @@ package edu.stonybrook.cs.nlp.sentence.filter;
 
 import java.util.List;
 
-import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
+import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * This class is used to get the select filter
+ * for sentence parser.
+ * 
+ * @author Jiawei Kuang
+ * @version 1.0
+ * @since Nov. 8, 2014
+ */
 
 public class SentenceFilterSelector {
-	public void setSentenceTypes(List<String> sentenceTypes) {
-		sentenceTypes.add(InputSentence.Type.SENTENCE);
-		sentenceTypes.add(InputSentence.Type.RULE);
-		sentenceTypes.add(InputSentence.Type.QUESTION);
-	}
+    
+    @Autowired
+    private SentenceFilter sentenceFilter;
 	
-	public void setSentenceParameters(List<String> sentenceAttributes) {
-		sentenceAttributes.add(InputSentence.Parameter.STRICT);
-		sentenceAttributes.add(InputSentence.Parameter.DEFEASIBLE);
-	}
-	
-	public void setInterrogatives(List<String> interrogative) {
-		interrogative.add(InputSentence.Interrogative.WHAT);
-		interrogative.add(InputSentence.Interrogative.WHEN);
-		interrogative.add(InputSentence.Interrogative.WHERE);
-	}
+    public List<String> getAllSentenceTypes() {
+        return this.sentenceFilter.getSentenceTypes();
+    }
+
+    public List<String> getAllSentenceParameters() {
+        return this.sentenceFilter.getSentenceParameters();
+    }
+
+    public List<String> getAllInterrogatives() {
+        return this.sentenceFilter.getInterrogatives();
+    }
 }

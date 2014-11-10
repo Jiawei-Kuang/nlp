@@ -9,6 +9,13 @@ import edu.stonybrook.cs.nlp.sentence.filter.SentenceFilterSelector;
 import edu.stonybrook.cs.nlp.sentence.parser.SentenceParser;
 import edu.stonybrook.cs.nlp.sentence.parser.SentenceParserHandler;
 
+/**
+ * 
+ * @author Jiawei Kuang
+ * @version 1.0
+ * @since Nov. 8, 2014
+ */
+
 @Configuration
 public class SentenceConfig {
     @Bean
@@ -17,9 +24,8 @@ public class SentenceConfig {
     }
 
     @Bean
-    public SentenceFilter sentenceFilter(
-            SentenceFilterSelector sentenceFilterSelector) {
-        return new SentenceFilter(sentenceFilterSelector);
+    public SentenceFilter sentenceFilter() {
+        return new SentenceFilter();
     }
     
     @Bean
