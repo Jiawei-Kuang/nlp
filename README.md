@@ -32,14 +32,16 @@ Steps
 
 2. Compile Attempto APE: goto $APE_ROOT
 	
-	> make_exe.bat
+	make_exe.bat
 
-3. Build Java Interface for APE, https://github.com/Attempto/APE/tree/master/java. After building of APE, add attempto-ape jar in $APE_ROOT\java\target in your local maven repository.(how to add jar in local maven repository? http://www.mkyong.com/maven/how-to-include-library-manully-into-maven-local-repository/) You also need to add jpl.jar into local maven repository, but you have already done it in the building process. You can find jpl.jar in $SWIPL_ROOT\bin
+3. Build Java Interface for APE, https://github.com/Attempto/APE/tree/master/java. After building of APE, add attempto-ape jar in $APE_ROOT\java\target to your local maven repository.(how to add jar in local maven repository? http://www.mkyong.com/maven/how-to-include-library-manully-into-maven-local-repository/) You also need to add jpl.jar into local maven repository, but you have already done it in the building process. You can find jpl.jar in $SWIPL_ROOT\bin
 
 4. install tomcat for eclipse (make sure you are not running a tomcat in your pc while you are installing) http://www.programcreek.com/2014/01/install-tomcat-7-for-eclipse/
 
 5. import this project by go to file -> import -> maven -> existing maven project, if you have some error such as "cannot find javax.servlet.http.HttpServletRequest", right click your project -> properties -> java build path -> add Library -> server runtime and select your tomcat.
 
-6. Before you run the project, please note that in SentenceParser file, you need to change "C:\\ape-6.7-131003\\ape.exe" to your own path in statement APELocal.init("C:\\ape-6.7-131003\\ape.exe", true).
+6. Before you run the project, please note that in SentenceParser.java, you need to change "C:\\ape-6.7-131003\\ape.exe" to your own path in statement 
+	
+	APELocal.init("C:\\ape-6.7-131003\\ape.exe", true).
 
 7. right click your project -> run as -> run on server, choose your tomcat and then click finish.
