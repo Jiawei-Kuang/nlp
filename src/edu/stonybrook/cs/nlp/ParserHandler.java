@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
+import edu.stonybrook.cs.nlp.exception.SentenceInvalidException;
 import edu.stonybrook.cs.nlp.sentence.Sentence;
 import edu.stonybrook.cs.nlp.sentence.SentencesSelector;
 import edu.stonybrook.cs.nlp.sentence.filter.SentenceFilterSelector;
@@ -53,12 +54,17 @@ public class ParserHandler {
         model.put(InputSentence.SENTENCE_TYPE, InputSentence.SENTENCE_TYPE);
         model.put(InputSentence.QUESTION_TYPES, sentenceFilterSelector.getAllInterrogatives());
         model.put(InputSentence.QUESTION_TYPE, InputSentence.QUESTION_TYPE);
+        model.put(InputSentence.IS_VALID_SENTENCE, true);
         List<Sentence> sentencesList = sentencesSelector.getSentences(request);
         model.put(InputSentence.SENTENCES, sentencesList);
         
-        for (int i = 0; i < sentencesList.size(); i++) {
-            Sentence sentence = sentencesList.get(i);
-            sentenceParserHandler.parse(sentence);
+        if (!sentencesList.isEmpty()) {
+            try {
+                Sentence sentence = sentencesList.get(0);
+                sentenceParserHandler.parse(sentence);
+            } catch (SentenceInvalidException e) {
+                model.put(InputSentence.IS_VALID_SENTENCE, false);
+            }
         }
         
         return model;

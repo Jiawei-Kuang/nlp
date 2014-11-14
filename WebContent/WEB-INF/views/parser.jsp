@@ -33,6 +33,13 @@ body {
 			Sentence Parser<br> <br>
 		</h2>
 	</div>
+	
+	<c:if test="${model.isValidSentence == false}">
+		<div align='center'>
+			<p id="invalidSentence" style="color:red">Invalid Input Sentence!!!</p>
+		</div>
+		<br>
+	</c:if>
 
 	<form id="form">
 		<div id="sentences">
@@ -69,14 +76,7 @@ body {
 				<input type="text" id="thenSentence" name="thenSentence"
 					class="form-control" placeholder="input sentence">
 				<span id="questionMark" class="input-group-addon">?</span>
-				
-				<!-- 
-				<span class="input-group-addon"> 
-					<select id="exception" name="exception" class="btn btn-default">
-						<option value="exception">Exception</option>
-					</select>
-				</span>
-				 -->
+
 				<!-- sentence parameter e.g. Strict and Defeasible -->
 				<span class="input-group-addon">
 					<select name="${model.sentenceParameter}" class="btn btn-default">
@@ -115,6 +115,7 @@ body {
 	</form>
 	<br>
 	<br>
+	<c:if test="${model.isValidSentence == true}">
 	<c:if test="${not empty model.sentences}">
 		<c:forEach var="sentence" items="${model.sentences}">
 		<div id="inputSentence" class="input-group">
@@ -153,6 +154,7 @@ body {
 				value="${model.sentences[0].fol}" readonly="readonly">
 		</div>
 	</c:if>
+	</c:if>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		var num = 1;
@@ -165,30 +167,31 @@ body {
 			$("span#questionMark").hide();
 			$("span#dummyException").hide();
 			$('#form').on('change', 'select#sentenceType', function(){
+				var sentenceDiv = $(this).parent().parent();
 				if ($(this).val().localeCompare("Sentence") == 0) {
-					$(this).parent().parent().children("#inputSentence").show();
-					$(this).parent().parent().children("#ifSentence").hide();
-					$(this).parent().parent().children("#thenSentence").hide();
-					$(this).parent().parent().children("#if").hide();
-					$(this).parent().parent().children("#then").hide();
-					$(this).parent().parent().children("#questionMark").hide();
-					$(this).parent().parent().children("#questionType").hide();
+					sentenceDiv.children("#inputSentence").show();
+					sentenceDiv.children("#ifSentence").hide();
+					sentenceDiv.children("#thenSentence").hide();
+					sentenceDiv.children("#if").hide();
+					sentenceDiv.children("#then").hide();
+					sentenceDiv.children("#questionMark").hide();
+					sentenceDiv.children("#questionType").hide();
 				} else if ($(this).val().localeCompare("Rule") == 0) {
-					$(this).parent().parent().children("#inputSentence").hide();
-					$(this).parent().parent().children("#ifSentence").show();
-					$(this).parent().parent().children("#thenSentence").show();
-					$(this).parent().parent().children("#if").show();
-					$(this).parent().parent().children("#then").show();
-					$(this).parent().parent().children("#questionMark").hide();
-					$(this).parent().parent().children("#questionType").hide();
+					sentenceDiv.children("#inputSentence").hide();
+					sentenceDiv.children("#ifSentence").show();
+					sentenceDiv.children("#thenSentence").show();
+					sentenceDiv.children("#if").show();
+					sentenceDiv.children("#then").show();
+					sentenceDiv.children("#questionMark").hide();
+					sentenceDiv.children("#questionType").hide();
 				} else if ($(this).val().localeCompare("Question") == 0) {
-					$(this).parent().parent().children("#inputSentence").show();
-					$(this).parent().parent().children("#ifSentence").hide();
-					$(this).parent().parent().children("#thenSentence").hide();
-					$(this).parent().parent().children("#if").hide();
-					$(this).parent().parent().children("#then").hide();
-					$(this).parent().parent().children("#questionMark").show();
-					$(this).parent().parent().children("#questionType").show();
+					sentenceDiv.children("#inputSentence").show();
+					sentenceDiv.children("#ifSentence").hide();
+					sentenceDiv.children("#thenSentence").hide();
+					sentenceDiv.children("#if").hide();
+					sentenceDiv.children("#then").hide();
+					sentenceDiv.children("#questionMark").show();
+					sentenceDiv.children("#questionType").show();
 				}
 			});
 			

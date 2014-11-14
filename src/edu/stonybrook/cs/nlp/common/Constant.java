@@ -21,6 +21,7 @@ public class Constant {
         public final String QUESTION_TYPES              = "questionTypes";
         public final String EXCEPTION                   = "exception";
         public final String SENTENCES                   = "sentences";
+        public final String IS_VALID_SENTENCE           = "isValidSentence";
         
         public interface Interrogative {
             public final String WHAT                    = "What";
