@@ -6,6 +6,8 @@ import ch.uzh.ifi.attempto.ape.OutputType;
 import edu.stonybrook.cs.nlp.exception.SentenceInvalidException;
 
 /**
+ * By now, we use Attempto APE to test the UI
+ * In the future, we will use our parser
  * 
  * @author Jiawei Kuang
  * @version 1.0

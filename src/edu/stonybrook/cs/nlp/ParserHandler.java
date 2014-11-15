@@ -36,7 +36,7 @@ public class ParserHandler {
     private SentenceParserHandler sentenceParserHandler;
     
     /**
-     * This method does three things.
+     * This method does three kind of objects to model.
      * 1. Put the sentence filters information into model.
      * 2. Get sentence related information from SentenceSelector
      *    and then put to model.
