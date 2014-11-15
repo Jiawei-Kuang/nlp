@@ -1,11 +1,17 @@
 package edu.stonybrook.cs.nlp.sentence;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jiawei.kuang.common.util.NumUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
+import edu.stonybrook.cs.nlp.exception.SentenceInvalidException;
 
 /**
  * This class is used to get and clean the informations
@@ -18,6 +24,9 @@ import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
 
 public class SentencesSelector {
     
+    @Autowired
+    private NumUtil numUtil;
+    
     /**
      * This method read all the informations got from http request,
      * then process them and return a list a sentence object.
@@ -25,7 +34,8 @@ public class SentencesSelector {
      * @param request
      * @return List<Sentence>
      */
-    public List<Sentence> getSentences(HttpServletRequest request) {
+    public List<Sentence> getSentences(HttpServletRequest request) 
+            throws SentenceInvalidException{
         List<Sentence> sentences = new ArrayList<>();
         if (request.getParameterValues(InputSentence.SENTENCE_PARAMETER) == null) {
             return sentences;
@@ -49,9 +59,17 @@ public class SentencesSelector {
             sentence.setExceptions(exceptionsList.get(i));
             switch (sentenceTypes[i]) {
             case InputSentence.Type.SENTENCE :
+                if (inputSentences[i].isEmpty()) {
+                    throw new SentenceInvalidException(
+                            emptyInputExceptionMessage(i + 1));
+                }
                 sentence.setSentence(inputSentences[i].trim());
                 break;
             case InputSentence.Type.RULE :
+                if (ifSentences[i].isEmpty() || thenSentences[i].isEmpty()) {
+                    throw new SentenceInvalidException(
+                            emptyInputExceptionMessage(i + 1));
+                }
                 StringBuffer sb = new StringBuffer();
                 sb.append("If ");
                 sb.append(ifSentences[i].trim());
@@ -61,6 +79,10 @@ public class SentencesSelector {
                 sentence.setSentence(sb.toString());
                 break;
             case InputSentence.Type.QUESTION :
+                if (inputSentences[i].isEmpty()) {
+                    throw new SentenceInvalidException(
+                            emptyInputExceptionMessage(i + 1));
+                }
                 StringBuffer questionSentence = new StringBuffer();
                 questionSentence.append(questionTypes[i] + " ");
                 questionSentence.append(inputSentences[i].trim() + "?");
@@ -70,6 +92,20 @@ public class SentencesSelector {
             sentences.add(sentence);
         }
         return sentences;
+    }
+    
+    /**
+     * 
+     * @param num, the sequence number of input sentence
+     * @return the ordinal number of input number
+     */
+    private String emptyInputExceptionMessage(int num) {
+        Formatter formatter = new Formatter();
+        formatter.format("The %s input sentence is not completed", 
+                numUtil.convertNumToOrdinal(num));
+        String ret = formatter.toString();
+        formatter.close();
+        return ret;
     }
     
     private List<List<String>> partitionExceptions(String[] exceptions) {
