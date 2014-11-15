@@ -31,7 +31,7 @@
     
     <c:if test="${model.isValidSentence == false}">
         <div align='center'>
-            <p id="invalidSentence" style="color:red">Invalid Input Sentence!!!<br></p>
+            <p id="invalidSentence" style="color:red">${model.exceptionMessage}<br></p>
         </div>
     </c:if>
 
@@ -59,14 +59,14 @@
                 </select>
                 
                 <!-- input area -->
-                <input type="text" id="inputSentence" name="inputSentence" 
+                <input type="text" id="inputSentence" name="${model.inputSentence}" 
                     class="form-control" placeholder="input sentence">
-                <span id="if" class="input-group-addon">IF</span>
-                <input type="text" id="ifSentence" name="ifSentence"
-                    class="form-control" placeholder="input sentence">
-                <span id="then" class="input-group-addon">THEN</span>
-                <input type="text" id="thenSentence" name="thenSentence"
-                    class="form-control" placeholder="input sentence">
+                <span id="if" class="input-group-addon">${model.If}</span>
+                <input type="text" id="ifSentence" name="${model.ifSentence}"
+                    class="form-control" placeholder="if condition">
+                <span id="then" class="input-group-addon">${model.Then}</span>
+                <input type="text" id="thenSentence" name="${model.thenSentence}"
+                    class="form-control" placeholder="then sentence">
                 <span id="questionMark" class="input-group-addon">?</span>
                 
                 <!-- sentence type e.g. sentence, rule and question -->
@@ -93,7 +93,7 @@
                 </span>
 
                 <!-- Multiple select for exceptions -->
-                <select id="exception" class="selectpicker" multiple title='Except With' name="exception" data-width="120px">
+                <select id="exception" class="selectpicker" multiple title='Except With' name="${model.exception}" data-width="120px">
                     <option value="1">1</option>
                 </select>
             </div>

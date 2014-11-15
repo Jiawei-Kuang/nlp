@@ -12,6 +12,8 @@ public class Constant {
         public final String INPUT_SENTENCE              = "inputSentence";
         public final String IF_SENTENCE                 = "ifSentence";
         public final String THEN_SENTENCE               = "thenSentence";
+        public final String IF                          = "If";
+        public final String THEN                        = "Then";
         
         public final String SENTENCE_PARAMETER          = "sentenceParameter";
         public final String SENTENCE_PARAMETERS         = "sentenceParameters";
@@ -20,8 +22,10 @@ public class Constant {
         public final String QUESTION_TYPE               = "questionType";
         public final String QUESTION_TYPES              = "questionTypes";
         public final String EXCEPTION                   = "exception";
+        
         public final String SENTENCES                   = "sentences";
         public final String IS_VALID_SENTENCE           = "isValidSentence";
+        public final String EXCEPTION_MESSAGE           = "exceptionMessage";
         
         public interface Interrogative {
             public final String WHAT                    = "What";

@@ -36,7 +36,7 @@ public class ParserHandler {
     private SentenceParserHandler sentenceParserHandler;
     
     /**
-     * This method does three kind of objects to model.
+     * This method adds three kind of objects to model.
      * 1. Put the sentence filters information into model.
      * 2. Get sentence related information from SentenceSelector
      *    and then put to model.
@@ -54,17 +54,24 @@ public class ParserHandler {
         model.put(InputSentence.SENTENCE_TYPE, InputSentence.SENTENCE_TYPE);
         model.put(InputSentence.QUESTION_TYPES, sentenceFilterSelector.getAllInterrogatives());
         model.put(InputSentence.QUESTION_TYPE, InputSentence.QUESTION_TYPE);
+        model.put(InputSentence.INPUT_SENTENCE, InputSentence.INPUT_SENTENCE);
+        model.put(InputSentence.IF_SENTENCE, InputSentence.IF_SENTENCE);
+        model.put(InputSentence.THEN_SENTENCE, InputSentence.THEN_SENTENCE);
+        model.put(InputSentence.IF, InputSentence.IF);
+        model.put(InputSentence.THEN, InputSentence.THEN);
+        model.put(InputSentence.EXCEPTION, InputSentence.EXCEPTION);
         model.put(InputSentence.IS_VALID_SENTENCE, true);
-        List<Sentence> sentencesList = sentencesSelector.getSentences(request);
-        model.put(InputSentence.SENTENCES, sentencesList);
+        try {
+            List<Sentence> sentencesList = sentencesSelector.getSentences(request);
+            model.put(InputSentence.SENTENCES, sentencesList);
         
-        if (!sentencesList.isEmpty()) {
-            try {
+            if (!sentencesList.isEmpty()) {
                 Sentence sentence = sentencesList.get(0);
                 sentenceParserHandler.parse(sentence);
-            } catch (SentenceInvalidException e) {
-                model.put(InputSentence.IS_VALID_SENTENCE, false);
             }
+        } catch (SentenceInvalidException e) {
+            model.put(InputSentence.IS_VALID_SENTENCE, false);
+            model.put(InputSentence.EXCEPTION_MESSAGE, e.getMessage());
         }
         
         return model;
