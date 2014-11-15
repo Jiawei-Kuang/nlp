@@ -2,261 +2,155 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Sentence Parser</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
-<style>
-body {
-	margin-top:20px;
-	margin-right:70px;
-	margin-bottom:10px;
-	margin-left:70px;
-}
-</style>
-<link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css"	rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>Sentence Parser</title>
+
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css"    rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/parserView.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/main.js" />"></script>
 </head>
 <body>
 
-	<ul class="nav nav-tabs" role="tablist">
-		<li class="active"><a href="home">Home</a></li>
-		<li><a href="parser">Parser</a></li>
-	</ul>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="home">Home</a></li>
+        <li><a href="parser">Parser</a></li>
+    </ul>
 
-	<div align='center'>
-		<h2>
-			Sentence Parser<br> <br>
-		</h2>
-	</div>
-	
-	<c:if test="${model.isValidSentence == false}">
-		<div align='center'>
-			<p id="invalidSentence" style="color:red">Invalid Input Sentence!!!</p>
-		</div>
-		<br>
-	</c:if>
+    <div align='center'>
+        <h2>Sentence Parser<br><br></h2>
+    </div>
+    
+    <c:if test="${model.isValidSentence == false}">
+        <div align='center'>
+            <p id="invalidSentence" style="color:red">Invalid Input Sentence!!!<br></p>
+        </div>
+    </c:if>
 
-	<form id="form">
-		<div id="sentences">
-			<div id="sentence" class="input-group">
-				<!-- remove button -->
-				<span class="input-group-btn">
-					<button id="rmSentenceBtn" class="btn btn-danger" type="button">
-						<span class="glyphicon glyphicon-minus"></span>
-					</button>
-				</span>
-				
-				<!-- sentence sequence number -->
-				<span id="rmBtnNth" class="input-group-btn">
-					<button id="nth" class="btn btn-default" type="button">1
-					</button>
-				</span>
-				
-				<!-- question types such as who, what, where and when -->
-  				<span id="questionType" class="input-group-addon"> 
-					<select	name="${model.questionType}" class="btn btn-default">
-						<c:forEach var="qType" items="${model.questionTypes}">
-							<option value="${qType}">${qType}</option>
-						</c:forEach>
-					</select>
-				</span>
-				
-				<!-- input area -->
-				<input type="text" id="inputSentence" name="inputSentence" 
-					class="form-control" placeholder="input sentence">
-				<span id="if" class="input-group-addon">IF</span>
-				<input type="text" id="ifSentence" name="ifSentence"
-					class="form-control" placeholder="input sentence">
-				<span id="then" class="input-group-addon">THEN</span>
-				<input type="text" id="thenSentence" name="thenSentence"
-					class="form-control" placeholder="input sentence">
-				<span id="questionMark" class="input-group-addon">?</span>
+    <form id="form">
+        <div id="sentences">
+            <div id="sentence" class="input-group">
+                <!-- remove button -->
+                <span class="input-group-btn">
+                    <button id="rmSentenceBtn" class="btn btn-danger" type="button">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                
+                <!-- sentence sequence number -->
+                <span id="sentenceSequenceNumber" class="input-group-btn">
+                    <button id="sequenceNumber" class="btn btn-default" type="button">1
+                    </button>
+                </span>
+                
+                <!-- question types such as who, what, where and when -->
+                <select id="questionType" class="selectpicker" name="${model.questionType}" data-width="85px">
+                    <c:forEach var="qType" items="${model.questionTypes}">
+                        <option value="${qType}">${qType}</option>
+                    </c:forEach>
+                </select>
+                
+                <!-- input area -->
+                <input type="text" id="inputSentence" name="inputSentence" 
+                    class="form-control" placeholder="input sentence">
+                <span id="if" class="input-group-addon">IF</span>
+                <input type="text" id="ifSentence" name="ifSentence"
+                    class="form-control" placeholder="input sentence">
+                <span id="then" class="input-group-addon">THEN</span>
+                <input type="text" id="thenSentence" name="thenSentence"
+                    class="form-control" placeholder="input sentence">
+                <span id="questionMark" class="input-group-addon">?</span>
+                
+                <!-- sentence type e.g. sentence, rule and question -->
+                <span class="input-group-btn">
+                    <select id="sentenceType" name="${model.sentenceType}" class="btn btn-default">
+                        <c:forEach var="type" items="${model.sentenceTypes}">
+                            <option value="${type}">${type}</option>
+                        </c:forEach>
+                    </select>
+                </span>
 
-				<!-- sentence parameter e.g. Strict and Defeasible -->
-				<span class="input-group-addon">
-					<select name="${model.sentenceParameter}" class="btn btn-default">
-						<c:forEach var="parameter" items="${model.sentenceParameters}">
-							<option value="${parameter}">${parameter}</option>
-						</c:forEach>
-					</select> 
-				</span>
-				
-				<!-- sentence type e.g. sentence, rule and question -->
-				<span class="input-group-addon"> 
-					<select id="sentenceType" name="${model.sentenceType}" class="btn btn-default">
-						<c:forEach var="type" items="${model.sentenceTypes}">
-							<option value="${type}">${type}</option>
-						</c:forEach>
-					</select>
-				</span>
-				
-				<span id="dummyException" class="input-group-addon"> 
-					<select name="exception" class="btn btn-default">
-						<option value="0"></option>
-					</select>
-				</span>
-				<select class="selectpicker" multiple title='Except With' name="exception" data-width="150px">
-					<option value="1">1</option>
-				</select>
-			</div>
-		</div>
-		<br>
-		<div align='center'>
-			<button id="addSentenceBtn" class="btn btn-primary btn-pad"
-				type="button">Add Sentence</button>
-			<button id="parseBtn" class="btn btn-primary btn-pad" type="submit"
-				name="submit" value="true">Parse</button>
-		</div>
-	</form>
-	<br>
-	<br>
-	<c:if test="${model.isValidSentence == true}">
-	<c:if test="${not empty model.sentences}">
-		<c:forEach var="sentence" items="${model.sentences}">
-		<div id="inputSentence" class="input-group">
-			<span class="input-group-btn">
-				<button id="nth" class="btn btn-warning" type="button">${sentence.num}</button>
-			</span> <input type="text" id="inputSentence" name="inputSentence"
-				class="form-control" value="${sentence.sentence}"
-				readonly="readonly">
-				<c:if test="${not empty sentence.exceptions}">
-				<span class="input-group-btn">
-				<button class="btn btn-info">Exception With</button>
-				<c:forEach var="exception" items="${sentence.exceptions}">
-					<button id="nth" class="btn btn-warning" type="button">${exception}</button>
-				</c:forEach>
-			</span></c:if>
-		</div>
-		</c:forEach>
-	</c:if>
-	<br>
-	<br>
-	<c:if test="${not empty model.sentences}">
-		<div id=drs class="input-group">
-			<span class="input-group-btn">
-				<button class="btn btn-success">DRS</button>
-			</span> <input type="text" id="drs" name="drs" class="form-control"
-				value="${model.sentences[0].drs}" readonly="readonly">
-		</div>
-	</c:if>
-	<br>
-	<br>
-	<c:if test="${not empty model.sentences}">
-		<div id=fol class="input-group">
-			<span class="input-group-btn">
-				<button class="btn btn-success">FOL</button>
-			</span> <input type="text" id="fol" name="fol" class="form-control"
-				value="${model.sentences[0].fol}" readonly="readonly">
-		</div>
-	</c:if>
-	</c:if>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script>
-		var num = 1;
-		$(document).ready(function() {
-			$("input#ifSentence").hide();
-			$("input#thenSentence").hide();
-			$("span#if").hide();
-			$("span#then").hide();
-			$("span#questionType").hide();
-			$("span#questionMark").hide();
-			$("span#dummyException").hide();
-			$('#form').on('change', 'select#sentenceType', function(){
-				var sentenceDiv = $(this).parent().parent();
-				if ($(this).val().localeCompare("Sentence") == 0) {
-					sentenceDiv.children("#inputSentence").show();
-					sentenceDiv.children("#ifSentence").hide();
-					sentenceDiv.children("#thenSentence").hide();
-					sentenceDiv.children("#if").hide();
-					sentenceDiv.children("#then").hide();
-					sentenceDiv.children("#questionMark").hide();
-					sentenceDiv.children("#questionType").hide();
-				} else if ($(this).val().localeCompare("Rule") == 0) {
-					sentenceDiv.children("#inputSentence").hide();
-					sentenceDiv.children("#ifSentence").show();
-					sentenceDiv.children("#thenSentence").show();
-					sentenceDiv.children("#if").show();
-					sentenceDiv.children("#then").show();
-					sentenceDiv.children("#questionMark").hide();
-					sentenceDiv.children("#questionType").hide();
-				} else if ($(this).val().localeCompare("Question") == 0) {
-					sentenceDiv.children("#inputSentence").show();
-					sentenceDiv.children("#ifSentence").hide();
-					sentenceDiv.children("#thenSentence").hide();
-					sentenceDiv.children("#if").hide();
-					sentenceDiv.children("#then").hide();
-					sentenceDiv.children("#questionMark").show();
-					sentenceDiv.children("#questionType").show();
-				}
-			});
-			
-			$('#form').on('click', '#addSentenceBtn', function() {
-				num = num + 1;
-				var sentenceDiv = $("#sentence:last").clone(true);
-				sentenceDiv.children("#inputSentence").removeAttr("value");
-				sentenceDiv.children("#rmBtnNth").children("#nth").remove();
-				sentenceDiv.children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
-						+ num + '</button>');
-				$("#sentences").append(sentenceDiv);
-				
-				//process multiselect
-				var exceptToRemove = $(".selectpicker");
-				exceptToRemove.remove();
-				$(".bootstrap-select").remove();
-				
-				var exception = '<select class="selectpicker" multiple title="Except With" name="exception" data-width="150px">';
-				for (var i = 1; i <= num; i++) {
-					exception += '<option value="' + i +'">' + i + '</option>';
-				}
-				exception += '</select>';
-				$("div#sentence").append(exception);
-				 
-				$('.selectpicker').selectpicker({
-				      style: 'btn-defalut',
-				      size: 4
-				});
-				
-			});
+                <!-- sentence parameter e.g. Strict and Defeasible -->
+                <select id="sentenceParameter" class="selectpicker" name="${model.sentenceParameter}" data-width="110px">
+                    <c:forEach var="parameter" items="${model.sentenceParameters}">
+                        <option value="${parameter}">${parameter}</option>
+                    </c:forEach>
+                </select>
 
-			$("#rmSentenceBtn").click(function() {
-				if (num == 1) {
-					return;
-				}
-				$(this).parent().parent().remove();
-				num = num - 1;
+                <!-- This dummyException is used to separate each sentences' exceptions -->
+                <span id="dummyException" class="input-group-addon"> 
+                    <select name="exception" class="btn btn-default">
+                        <option value="0"></option>
+                    </select>
+                </span>
 
-				$("span#rmBtnNth").children("#nth").remove();
-				for (var i = 1; i <= num; i++) {
-					$("div#sentence:nth-child(" + i + ")").children("#rmBtnNth").append('<button id="nth" class="btn btn-default" type="button">'
-							+ i + '</button>');
-				}
-				
-				$(".selectpicker").remove();
-				$(".bootstrap-select").remove();
-				
-				var exception = '<select class="selectpicker" multiple title="Except With" name="exception" data-width="150px">';
-				for (var i = 1; i <= num; i++) {
-					exception += '<option value="' + i +'">' + i + '</option>';
-				}
-				exception += '</select>';
-				$("div#sentence").append(exception);
-				 
-				$('.selectpicker').selectpicker({
-				      style: 'btn-defalut',
-				      size: 4
-				});
-			});
-			
-			$('.selectpicker').selectpicker({
-			      style: 'btn-defalut',
-			      size: 4
-			});
-		});
-	</script>
+                <!-- Multiple select for exceptions -->
+                <select id="exception" class="selectpicker" multiple title='Except With' name="exception" data-width="120px">
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div align='center'>
+            <button id="addSentenceBtn" class="btn btn-primary btn-pad"
+                type="button">Add Sentence</button>
+            <button id="parseBtn" class="btn btn-primary btn-pad" type="submit"
+                name="submit" value="true">Parse</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <c:if test="${model.isValidSentence == true}">
+        <!-- Display the input sentences -->
+        <c:if test="${not empty model.sentences}">
+            <c:forEach var="sentence" items="${model.sentences}">
+                <div id="inputSentence" class="input-group">
+                    <span class="input-group-btn">
+                    <button id="nth" class="btn btn-warning" type="button">${sentence.num}</button>
+                    </span>
+                    <input type="text" id="inputSentence" name="inputSentence"
+                        class="form-control" value="${sentence.sentence}" readonly="readonly">
+                    <c:if test="${not empty sentence.exceptions}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info">Exception With</button>
+                            <c:forEach var="exception" items="${sentence.exceptions}">
+                                    <button id="nth" class="btn btn-warning" type="button">${exception}</button>
+                            </c:forEach>
+                        </span>
+                    </c:if>
+                </div>
+            </c:forEach>
+        </c:if>
+        <br>
+        <!-- Sentence DRS result -->
+        <c:if test="${not empty model.sentences}">
+            <div id=drs class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success">DRS</button>
+                </span> 
+                <input type="text" id="drs" name="drs" class="form-control"
+                        value="${model.sentences[0].drs}" readonly="readonly">
+            </div>
+        </c:if>
+        <br>
+        <!-- Sentence FOL result -->
+        <c:if test="${not empty model.sentences}">
+            <div id=fol class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success">FOL</button>
+                </span> 
+                <input type="text" id="fol" name="fol" class="form-control"
+                        value="${model.sentences[0].fol}" readonly="readonly">
+            </div>
+        </c:if>
+    </c:if>
 </body>
 </html>
