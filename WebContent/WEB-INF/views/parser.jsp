@@ -12,11 +12,13 @@
     <link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css"    rel="stylesheet">
+    <link href="<c:url value="/resources/css/parserView.css" />" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
     <script src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/parserView.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/main.js" />"></script>
+    
 </head>
 <body>
 
@@ -36,7 +38,13 @@
     </c:if>
 
     <form id="form">
-        <div id="sentences">
+    	<div id="paragraph">
+    		<textarea class="custom" style="margin:10px;" rows="5" cols="100" placeholder="input text"></textarea>
+    		<br>
+    		<button id="btnParse" style="margin:10px;" class="btn btn-primary btn-pad" type="submit" name="submit" value="parse">Parse</button>
+    	</div>
+    	<br>
+        <div id="sentences" style="margin:10px;">
             <div id="sentence" class="input-group">
                 <!-- remove button -->
                 <span class="input-group-btn">

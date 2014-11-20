@@ -1,0 +1,11 @@
+textarea.custom{
+	resize: both;
+    font-family:"Arial";
+    font-size: 16px;
+    -webkit-user-select: auto;
+    border: 1px solid rgb(145, 145, 145);
+    outline: none;
+    overflow: scroll;
+    padding: 1px;
+    cursor: text;
+}

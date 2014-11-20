@@ -17,7 +17,7 @@ import edu.stonybrook.cs.nlp.exception.SentenceInvalidException;
 public class SentenceParser {
 
     private APELocal getApeLocal() {
-        APELocal.init("C:\\ape-6.7-131003\\ape.exe", true);
+        APELocal.init("C:\\APE\\ape.exe", true);
         return APELocal.getInstance();
     }
 
