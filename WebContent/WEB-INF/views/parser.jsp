@@ -113,6 +113,116 @@
             <button id="parseBtn" class="btn btn-primary btn-pad" type="submit"
                 name="submit" value="true">Parse</button>
         </div>
+        <br>
+        <div style="margin:10px;">
+        	<div class="col-md-12">
+        		<div class="table-responsive">
+					<table class="table table-hover" id="parseResult">
+						<col width="10">
+						<col width="30">
+						<col width="30">
+						<col width="600">
+						<col width="400">
+						<col width="400">
+						<col width="10">
+						<col width="10">
+						<thead>
+							<tr >
+								<th class="bg-success">
+									#
+								</th>
+								<th class="bg-success">
+									Parameter
+								</th>
+								<th class="bg-success">
+									Exception
+								</th>
+								<th class="bg-success">
+									Input
+								</th>
+								<th class="bg-success">
+									DRS
+								</th>
+								<th class="bg-success">
+									FOL
+								</th>
+								<th class="bg-success">
+									Edit
+								</th>
+								<th class="bg-success">
+									Delete
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='row0'>
+								
+								<!-- sentence sequence number -->
+								<td>
+									<span id="sentenceSequenceNumber" class="input-group-btn">
+                    					<button id="sequenceNumber" class="btn btn-danger" type="button">1
+                    					</button>
+                					</span>
+								</td>
+								<!-- sentence parameter.e.g. Strict and Defeasible -->
+								<td>
+									<select id="sentenceParameter" class="selectpicker" name="${model.sentenceParameter}" data-width="110px">
+                    					<c:forEach var="parameter" items="${model.sentenceParameters}">
+                        					<option value="${parameter}">${parameter}</option>
+                    					</c:forEach>
+                					</select>	
+								</td>
+								<!-- Multiple select for exceptions -->
+								<td>
+									<!-- This dummyException is used to separate each sentences' exceptions -->
+                					<span id="dummyException" class="input-group-addon"> 
+                    					<select name="exception" class="btn btn-default">
+                        					<option value="0"></option>
+                   						</select>
+                					</span>
+									<select id="exception" class="selectpicker" multiple title='Except With' name="${model.exception}" data-width="120px">
+                    					<option value="1">1</option>
+                					</select>	
+								</td>
+								<!-- input area -->
+								<td>
+									<input type="text" id="inputSentence" name="${model.inputSentence}" 
+                    					class="form-control">	
+								</td>
+								<!-- parse result --DRS -->
+								<td>
+									DRS 
+								</td>
+								<!-- parse result --FOL -->
+								<td>
+									FOL
+								</td>
+								<!-- Edit button -->
+								<td>
+									<button id="edSentenceBtn"class="btn btn-primary" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top">
+										<span class="glyphicon glyphicon-pencil">
+										</span>
+									</button>
+								</td>
+								<!-- Remove button -->
+								<td>
+									<button id="rmSentenceBtn"class="btn btn-danger" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top">
+										<span class="glyphicon glyphicon-trash">
+										</span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div align='center'>
+            	<button id="addSentenceBtn" class="btn btn-primary btn-pad"
+                	type="button">Add Sentence</button>
+            	<button id="parseBtn" class="btn btn-primary btn-pad" type="submit"
+                	name="submit" value="update">Update</button>
+       		</div>
+       	</div>
     </form>
     <br>
     <br>
@@ -120,7 +230,7 @@
         <!-- Display the input sentences -->
         <c:if test="${not empty model.sentences}">
             <c:forEach var="sentence" items="${model.sentences}">
-                <div id="inputSentence" class="input-group">
+                <div id="inputSentence" class="input-group"> 
                     <span class="input-group-btn">
                     <button id="nth" class="btn btn-warning" type="button">${sentence.num}</button>
                     </span>
