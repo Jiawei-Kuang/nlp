@@ -1,5 +1,6 @@
 package edu.stonybrook.cs.nlp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,7 @@ public class ParserHandler {
         model.put(InputSentence.SENTENCE_TYPE, InputSentence.SENTENCE_TYPE);
         model.put(InputSentence.QUESTION_TYPES, sentenceFilterSelector.getAllInterrogatives());
         model.put(InputSentence.QUESTION_TYPE, InputSentence.QUESTION_TYPE);
+        model.put(InputSentence.INPUT_PARAGRAPH, InputSentence.INPUT_PARAGRAPH);
         model.put(InputSentence.INPUT_SENTENCE, InputSentence.INPUT_SENTENCE);
         model.put(InputSentence.IF_SENTENCE, InputSentence.IF_SENTENCE);
         model.put(InputSentence.THEN_SENTENCE, InputSentence.THEN_SENTENCE);
@@ -61,18 +63,29 @@ public class ParserHandler {
         model.put(InputSentence.THEN, InputSentence.THEN);
         model.put(InputSentence.EXCEPTION, InputSentence.EXCEPTION);
         model.put(InputSentence.IS_VALID_SENTENCE, true);
+        int numOfSentences = 0;
+        
         try {
             List<Sentence> sentencesList = sentencesSelector.getSentences(request);
+            numOfSentences = sentencesList.size();
             model.put(InputSentence.SENTENCES, sentencesList);
         
-            if (!sentencesList.isEmpty()) {
-                Sentence sentence = sentencesList.get(0);
-                sentenceParserHandler.parse(sentence);
+            if (sentencesList != null) {
+                for (int i = 0; i < sentencesList.size(); i++) {
+                    Sentence sentence = sentencesList.get(i);
+                    sentenceParserHandler.parse(sentence);
+                }
             }
         } catch (SentenceInvalidException e) {
             model.put(InputSentence.IS_VALID_SENTENCE, false);
             model.put(InputSentence.EXCEPTION_MESSAGE, e.getMessage());
         }
+        // Generate number for exception multi-select
+        List<Integer> exceptionOptions = new ArrayList<>();
+        for (int i = 1; i <= numOfSentences; i++) {
+            exceptionOptions.add(i);
+        }
+        model.put("exceptionOptions", exceptionOptions);
         
         return model;
     }

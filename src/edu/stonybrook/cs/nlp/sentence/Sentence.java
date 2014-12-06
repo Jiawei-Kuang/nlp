@@ -1,6 +1,9 @@
 package edu.stonybrook.cs.nlp.sentence;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
 
 /**
  * This class is used to store the content of one sentence
@@ -20,6 +23,22 @@ public class Sentence {
     private List<String> exceptions;
     private String drs;
     private String fol;
+    
+    public Sentence() {
+    }
+    
+    public Sentence(String sentence, int num) {
+        this.sentence = sentence;
+        this.num = num;
+        this.parameter = InputSentence.Parameter.STRICT;
+        this.exceptions = new ArrayList<>();
+    }
+    public Sentence(String sentence, int num, String parameter, List<String> exceptions) {
+        this.sentence = sentence;
+        this.num = num;
+        this.parameter = parameter;
+        this.exceptions = exceptions;
+    }
     
     public Integer getNum() {
         return num;

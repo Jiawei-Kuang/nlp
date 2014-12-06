@@ -9,6 +9,7 @@ package edu.stonybrook.cs.nlp.common;
 public class Constant {
     public interface InputSentence {
         
+        public final String INPUT_PARAGRAPH             = "inputParagraph";
         public final String INPUT_SENTENCE              = "inputSentence";
         public final String IF_SENTENCE                 = "ifSentence";
         public final String THEN_SENTENCE               = "thenSentence";
