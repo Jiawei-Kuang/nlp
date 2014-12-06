@@ -37,7 +37,7 @@
     </c:if>
 
     <form id="form">
-    	<div id="paragraph">
+    	<div id="paragraph" align='center'>
     		<textarea class="inputTextArea" rows="5" cols="100" name="${model.inputParagraph}"></textarea>
     		<br><br>
     		<button id="btnParse" class="btn btn-primary btn-pad" type="submit" name="submit" value="sentences">Sentences</button>
@@ -114,9 +114,8 @@
             <button id="parseBtn" class="btn btn-primary btn-pad" type="submit"
                 name="submit" value="true">Parse</button>
         </div>
-        
          -->
-        <br>
+
         <c:if test="${model.isValidSentence == true}">
     	<!-- Table for input sentences, drs and fol -->
     	<c:if test="${not empty model.sentences}">
@@ -130,12 +129,12 @@
   					<col width="25%">
         			<thead>
          				<tr>
-            			 	<th>#</th>
-            			 	<th>Parameter</th>
-            			 	<th>Exception</th>
-           				 	<th>Sentence</th>
-            				<th>DRS</th>
-            				<th>FOL</th>
+            			 	<th class="bg-success">#</th>
+            			 	<th class="bg-success">Parameter</th>
+            			 	<th class="bg-success">Exception</th>
+           				 	<th class="bg-success">Sentence</th>
+            				<th class="bg-success">DRS</th>
+            				<th class="bg-success">FOL</th>
           				</tr>
         			</thead>
         			<tbody>
@@ -182,7 +181,7 @@
         			</tbody>
       			</table>
     		</div>
-    		<br>
+
     		<div align='center'>
             <button id="parseBtn" class="btn btn-primary btn-pad" type="submit"
                 name="submit" value="update">Update</button>
