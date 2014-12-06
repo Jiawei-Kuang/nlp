@@ -172,10 +172,11 @@
           					</td>
           					<td>			
                     			<input type="text" id="inputSentence" name="inputSentence"
-                        			class="form-control" value="${sentence.sentence}">     			
+                        			class="form-control" value="${sentence.sentence}">
           					</td>
-          					<td>${sentence.drs}</td>
-          					<td>${sentence.fol}</td>
+          					
+          					<td <c:if test="${sentence.drsParseSuccess == false or empty sentence.sentence}">style="color:red"</c:if>>${sentence.drs}</td>
+          					<td <c:if test="${sentence.folParseSuccess == false or empty sentence.sentence}">style="color:red"</c:if>>${sentence.fol}</td>
           					</tr>
           				</c:forEach>
         			</tbody>
