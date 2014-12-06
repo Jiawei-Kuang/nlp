@@ -2,7 +2,8 @@ package edu.stonybrook.cs.nlp.sentence.parser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import edu.stonybrook.cs.nlp.exception.SentenceInvalidException;
+import ch.uzh.ifi.attempto.ape.ACEParserException;
+import ch.uzh.ifi.attempto.ape.Message;
 import edu.stonybrook.cs.nlp.sentence.Sentence;
 
 /**
@@ -17,8 +18,30 @@ public class SentenceParserHandler {
     @Autowired
     private SentenceParser sentenceParser;
     
-    public void parse(Sentence sentence) throws SentenceInvalidException {
-        sentence.setDrs(sentenceParser.parseToDRS(sentence.getSentence()));
-        sentence.setFol(sentenceParser.parseToFOL(sentence.getSentence()));
+    public void parse(Sentence sentence) {
+        try {
+            sentence.setDrs(sentenceParser.parseToDRS(sentence.getSentence()));
+            sentence.setDrsParseSuccess(true);
+        } catch (ACEParserException e) {
+            StringBuilder sb = new StringBuilder();
+            for (Message m : e.getMessageContainer().getErrorMessages()) {
+                sb.append(m.toString());
+                sb.append('\n');
+            }
+            sentence.setDrs(sb.toString());
+            sentence.setDrsParseSuccess(false);
+        }
+        try {
+            sentence.setFol(sentenceParser.parseToFOL(sentence.getSentence()));
+            sentence.setFolParseSuccess(true);
+        } catch (ACEParserException e) {
+            StringBuilder sb = new StringBuilder();
+            for (Message m : e.getMessageContainer().getErrorMessages()) {
+                sb.append(m.toString());
+                sb.append('\n');
+            }
+            sentence.setFol(sb.toString());
+            sentence.setFolParseSuccess(false);
+        }
     }
 }
