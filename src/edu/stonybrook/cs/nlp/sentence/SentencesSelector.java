@@ -1,7 +1,6 @@
 package edu.stonybrook.cs.nlp.sentence;
 
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,10 +54,10 @@ public class SentencesSelector {
             List<List<String>> exceptionsList = partitionExceptions(exceptions);
             int numOfSentences = setenceParameters.length;
             for (int i = 0; i < numOfSentences; i++) {
-                if (inputSentences[i].isEmpty()) {
-                    throw new SentenceInvalidException(
-                            emptyInputExceptionMessage(i + 1));
-                }
+//                if (inputSentences[i].isEmpty()) {
+//                    throw new SentenceInvalidException(
+//                            emptyInputExceptionMessage(i + 1));
+//                }
                 inputSentences[i] = inputSentences[i].trim();
                 Sentence sentence = new Sentence(inputSentences[i], i + 1, 
                         setenceParameters[i], exceptionsList.get(i));
@@ -133,6 +132,8 @@ public class SentencesSelector {
         String inputParagraph = request.getParameter(InputSentence.INPUT_PARAGRAPH);
         Set<Character> set = new HashSet<>();
         set.add('.');
+        set.add('?');
+        set.add('!');
         List<String> strs = stringUtil.partitionString(inputParagraph, set);
         for (int i = 0; i < strs.size(); i++) {
             Sentence sentence = new Sentence(strs.get(i), i + 1);
@@ -146,14 +147,14 @@ public class SentencesSelector {
      * @param num, the sequence number of input sentence
      * @return the ordinal number of input number
      */
-    private String emptyInputExceptionMessage(int num) {
-        Formatter formatter = new Formatter();
-        formatter.format("The %s input sentence is not completed", 
-                numUtil.convertNumToOrdinal(num));
-        String ret = formatter.toString();
-        formatter.close();
-        return ret;
-    }
+//    private String emptyInputExceptionMessage(int num) {
+//        Formatter formatter = new Formatter();
+//        formatter.format("The %s input sentence is not completed", 
+//                numUtil.convertNumToOrdinal(num));
+//        String ret = formatter.toString();
+//        formatter.close();
+//        return ret;
+//    }
     
     private List<List<String>> partitionExceptions(String[] exceptions) {
         List<List<String>> retList = new ArrayList<List<String>>();
