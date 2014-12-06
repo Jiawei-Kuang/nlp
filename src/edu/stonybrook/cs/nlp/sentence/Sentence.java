@@ -23,6 +23,8 @@ public class Sentence {
     private List<String> exceptions;
     private String drs;
     private String fol;
+    private boolean drsParseSuccess;
+    private boolean folParseSuccess;
     
     public Sentence() {
     }
@@ -76,5 +78,16 @@ public class Sentence {
     public void setFol(String fol) {
         this.fol = fol;
     }
-
+    public boolean isDrsParseSuccess() {
+        return drsParseSuccess;
+    }
+    public void setDrsParseSuccess(boolean drsParseSuccess) {
+        this.drsParseSuccess = drsParseSuccess;
+    }
+    public boolean isFolParseSuccess() {
+        return folParseSuccess;
+    }
+    public void setFolParseSuccess(boolean folParseSuccess) {
+        this.folParseSuccess = folParseSuccess;
+    }
 }
