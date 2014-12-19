@@ -17,16 +17,8 @@ public class SentenceFilterSelector {
     
     @Autowired
     private SentenceFilter sentenceFilter;
-	
-    public List<String> getAllSentenceTypes() {
-        return this.sentenceFilter.getSentenceTypes();
-    }
 
     public List<String> getAllSentenceParameters() {
         return this.sentenceFilter.getSentenceParameters();
-    }
-
-    public List<String> getAllInterrogatives() {
-        return this.sentenceFilter.getInterrogatives();
     }
 }
