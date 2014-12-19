@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import jiawei.kuang.common.util.NumUtil;
 import jiawei.kuang.common.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
  */
 
 public class SentencesSelector {
-    
-    @Autowired
-    private NumUtil numUtil;
     
     @Autowired
     private StringUtil stringUtil;
