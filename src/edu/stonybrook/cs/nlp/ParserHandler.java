@@ -62,7 +62,7 @@ public class ParserHandler {
         model.put(InputSentence.INPUT_SENTENCE, InputSentence.INPUT_SENTENCE);
         model.put(InputSentence.EXCEPTION, InputSentence.EXCEPTION);
         model.put(InputSentence.SENTENCES, sentencesList);
-        model.put("exceptionOptions", exceptionOptions);
+        model.put(InputSentence.EXCEPTION_OPTIONS, exceptionOptions);
         return model;
     }
 }
