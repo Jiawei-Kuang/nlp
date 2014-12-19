@@ -2,7 +2,7 @@ Web Application for NLP Project
 ===============================
 This is a web application for a natural language processing project of Dept. of CS at Stony Brook University. 
 
-We use MVC pattern to implements this web application based on Spring Framework, Bootstrap and jQuery as front end, java and jsp as back end.
+We use Spring Framework to implements this web application, Bootstrap and jQuery as front end, java and jsp as back end.
 
 How to set up this web application using eclipse:
 =================================================
@@ -16,7 +16,7 @@ require environment and tools:
 
 3. Eclipse IDE for Java EE Developers https://www.eclipse.org/downloads/
 
-4. Apache Tomcat 7 or 8 http://tomcat.apache.org/ (Recommend to use Tomcat 7)
+4. Apache Tomcat 7 or 8 http://tomcat.apache.org/ 
 
 5. Install maven, http://maven.apache.org/download.cgi and set path to $MAVEN_ROOT\bin
 
