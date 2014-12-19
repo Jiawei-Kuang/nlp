@@ -7,10 +7,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import jiawei.kuang.common.util.StringUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
 
 /**
@@ -23,10 +19,6 @@ import edu.stonybrook.cs.nlp.common.Constant.InputSentence;
  */
 
 public class SentencesSelector {
-    
-    @Autowired
-    private StringUtil stringUtil;
-    
     /**
      * This method read all the informations got from http request,
      * then process them and return a list a sentence object.
@@ -65,7 +57,7 @@ public class SentencesSelector {
         set.add('.');
         set.add('?');
         set.add('!');
-        List<String> strs = stringUtil.partitionString(inputParagraph, set);
+        List<String> strs = partitionString(inputParagraph, set);
         for (int i = 0; i < strs.size(); i++) {
             Sentence sentence = new Sentence(strs.get(i), i + 1);
             sentences.add(sentence);
@@ -86,5 +78,33 @@ public class SentencesSelector {
             }
         }
         return retList;
+    }
+    
+    /**
+     * This function partitions a String into several subStrings by some
+     * characters in a set. e.g.
+     * Partition "Who are you? I am Peter." into
+     * ["Who are you?", "I am Peter."]
+     * 
+     * @param originalString
+     * @param seperators is a set containing all the separator characters
+     * @return List<String> by partitioning originalString by separators
+     */
+    private List<String> partitionString(String originalString, Set<Character> separators) {
+        List<String> strs = new ArrayList<String>();
+        char[] originalCharArr = originalString.toCharArray();
+        int len = originalString.length();
+        for (int i = 0; i < len; i++) {
+            StringBuffer sb = new StringBuffer();
+            while (i < len - 1 && !separators.contains(originalCharArr[i])) {
+                sb.append(originalCharArr[i++]);
+            }
+            sb.append(originalCharArr[i]);
+            String str = sb.toString().trim();
+            if (!str.isEmpty()) {
+                strs.add(str);
+            }
+        }
+        return strs;
     }
 }
