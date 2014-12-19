@@ -36,8 +36,6 @@ Steps
 
 3. Build Java Interface for APE, https://github.com/Attempto/APE/tree/master/java. After building of APE, add attempto-ape jar in $APE_ROOT\java\target to your local maven repository.(how to add jar in local maven repository? http://www.mkyong.com/maven/how-to-include-library-manully-into-maven-local-repository/) You also need to add jpl.jar into local maven repository, but you have already done it in the building process. You can find jpl.jar in $SWIPL_ROOT\bin
 
-4. Your also need to add common jar (https://github.com/Jiawei-Kuang/Common.git) into your local maven repository.
-
 4. install tomcat for eclipse (make sure you are not running a tomcat in your pc while you are installing) http://www.programcreek.com/2014/01/install-tomcat-7-for-eclipse/
 
 5. import this project by go to file -> import -> maven -> existing maven project, if you have some error such as "cannot find javax.servlet.http.HttpServletRequest", right click your project -> properties -> java build path -> add Library -> server runtime and select your tomcat.
