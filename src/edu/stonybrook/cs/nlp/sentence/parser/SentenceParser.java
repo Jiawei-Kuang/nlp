@@ -14,6 +14,12 @@ import ch.uzh.ifi.attempto.ape.OutputType;
  */
 
 public class SentenceParser {
+    
+    private APELocal apeLocal;
+    
+    public SentenceParser() {
+        apeLocal = getApeLocal();
+    }
 
     private APELocal getApeLocal() {
         APELocal.init("C:\\ape-6.7-131003\\ape.exe", true);
@@ -21,14 +27,12 @@ public class SentenceParser {
     }
 
     public String parseToDRS(String text) throws ACEParserException {
-        APELocal apeLocal = getApeLocal();
         apeLocal.setGuessingEnabled(true);
         String drs = apeLocal.getSoloOutput(text, OutputType.DRS);
         return drs;
     }
 
     public String parseToFOL(String text) throws ACEParserException {
-        APELocal apeLocal = getApeLocal();
         apeLocal.setGuessingEnabled(true);
         String fol = apeLocal.getSoloOutput(text, OutputType.FOL);
         return fol;
