@@ -19,8 +19,7 @@ public class Sentence {
     private Integer num;
     private String sentence;
     private String parameter;
-    // This should change to List<Integer> later
-    private List<String> exceptions;
+    private List<Integer> exceptions;
     private String drs;
     private String fol;
     private boolean drsParseSuccess;
@@ -35,7 +34,7 @@ public class Sentence {
         this.exceptions = new ArrayList<>();
     }
     
-    public Sentence(String sentence, int num, String parameter, List<String> exceptions) {
+    public Sentence(String sentence, int num, String parameter, List<Integer> exceptions) {
         init(sentence, num);
         this.parameter = parameter;
         this.exceptions = exceptions;
@@ -70,11 +69,11 @@ public class Sentence {
         this.parameter = parameter;
     }
     
-    public List<String> getExceptions() {
+    public List<Integer> getExceptions() {
         return exceptions;
     }
     
-    public void setExceptions(List<String> excepts) {
+    public void setExceptions(List<Integer> excepts) {
         this.exceptions = excepts;
     }
     

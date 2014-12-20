@@ -37,9 +37,8 @@ public class SentencesSelector {
             String[] inputSentences         = request.getParameterValues(InputSentence.INPUT_SENTENCE);
             String[] setenceParameters      = request.getParameterValues(InputSentence.SENTENCE_PARAMETER);
             String[] exceptions             = request.getParameterValues(InputSentence.EXCEPTION);
-            List<List<String>> exceptionsList = partitionExceptions(exceptions);
-            int numOfSentences = setenceParameters.length;
-            for (int i = 0; i < numOfSentences; i++) {
+            List<List<Integer>> exceptionsList = partitionExceptions(exceptions);
+            for (int i = 0; i < setenceParameters.length; i++) {
                 inputSentences[i] = inputSentences[i].trim();
                 Sentence sentence = new Sentence(inputSentences[i], i + 1, 
                         setenceParameters[i], exceptionsList.get(i));
@@ -49,6 +48,11 @@ public class SentencesSelector {
         return sentences;
     }
     
+    /**
+     * Get request from user and return list of sentences from the text area
+     * @param request
+     * @return List<String> sentences in text area
+     */
     private List<Sentence> getParagraphSentences(HttpServletRequest request) {
         List<Sentence> sentences = new ArrayList<>();
         // Get input paragraph from request
@@ -65,14 +69,21 @@ public class SentencesSelector {
         return sentences;
     }
     
-    private List<List<String>> partitionExceptions(String[] exceptions) {
-        List<List<String>> retList = new ArrayList<List<String>>();
+    /**
+     * Get request from user, and partition exceptions to a list of
+     * List<Integer> for each sentence.
+     * 
+     * @param exceptions
+     * @return List<Integer> exception list
+     */
+    private List<List<Integer>> partitionExceptions(String[] exceptions) {
+        List<List<Integer>> retList = new ArrayList<>();
         int len = exceptions.length;
-        for (int i = 0; i< len; i++) {
+        for (int i = 0; i < len; i++) {
             if (exceptions[i].equals("0")) {
-                List<String> subList = new ArrayList<>();
+                List<Integer> subList = new ArrayList<>();
                 while (i + 1 < len && !exceptions[i + 1].equals("0")) {
-                    subList.add(exceptions[++i]);
+                    subList.add(Integer.parseInt(exceptions[++i]));
                 }
                 retList.add(subList);
             }
