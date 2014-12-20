@@ -18,6 +18,10 @@ public class SentenceFilterSelector {
     @Autowired
     private SentenceFilter sentenceFilter;
 
+    /**
+     * Get the sentence parameter options for parser view
+     * @return List<String> sentence parameter
+     */
     public List<String> getAllSentenceParameters() {
         return this.sentenceFilter.getSentenceParameters();
     }

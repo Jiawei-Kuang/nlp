@@ -38,10 +38,10 @@ public class ParserHandler {
     /**
      * This method adds three kind of objects to model.
      * 1. Put the sentence filters information into model.
-     * 2. Get sentence related information from SentenceSelector
+     * 2. Get sentences and parse them into phrase structure tree (i.e. drs and fol)
      *    and then put to model.
-     * 3. Parse sentences into phrase structure tree (i.e. drs and fol)
-     *    and then put to model.
+     * 3. Put exception options into model.
+     * 4. Put some parameter names into model.
      * 
      * @param request
      * @return model for parser page

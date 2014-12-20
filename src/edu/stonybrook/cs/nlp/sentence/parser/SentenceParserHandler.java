@@ -19,6 +19,10 @@ public class SentenceParserHandler {
     @Autowired
     private SentenceParser sentenceParser;
     
+    /**
+     * Parser sentence, the DRS and FOL result is store in sentence itself.
+     * @param sentence
+     */
     public void parse(Sentence sentence) {
         String sentenceString = sentence.getSentence();
         try {
@@ -42,12 +46,12 @@ public class SentenceParserHandler {
     }
     
     private String getACEParserExceptionErrorMessage(ACEParserException e) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder errMsg = new StringBuilder();
         MessageContainer messageContainer = e.getMessageContainer();
         for (Message m : messageContainer.getErrorMessages()) {
-            sb.append(m.toString());
-            sb.append('\n');
+            errMsg.append(m.toString());
+            errMsg.append('\n');
         }
-        return sb.toString();
+        return errMsg.toString();
     }
 }
