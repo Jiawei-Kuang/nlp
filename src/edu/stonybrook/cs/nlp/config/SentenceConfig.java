@@ -35,7 +35,7 @@ public class SentenceConfig {
     
     @Bean
     public SentenceParser sentenceParser() {
-        return new SentenceParser();
+        return SentenceParser.getSentenceParser();
     }
     
     @Bean

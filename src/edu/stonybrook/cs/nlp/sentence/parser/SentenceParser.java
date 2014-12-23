@@ -15,9 +15,22 @@ import ch.uzh.ifi.attempto.ape.OutputType;
 
 public class SentenceParser {
     
+    private volatile static SentenceParser instance;
+    
     private APELocal apeLocal;
     
-    public SentenceParser() {
+    public static SentenceParser getSentenceParser() {
+        if (instance == null) {
+            synchronized(SentenceParser.class) {
+                if (instance == null) {
+                    instance = new SentenceParser();
+                }
+            }
+        }
+        return instance;
+    }
+    
+    private SentenceParser() {
         apeLocal = getApeLocal();
     }
 
